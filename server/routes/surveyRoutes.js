@@ -16,7 +16,11 @@ module.exports = (app) => {
       body,
       // since recipient is a subdocument collection that uses the recipient schema
       // recipients: recipients.split(',').map(email=>{ return {email: email}});
-      recipients: recipients.split(",").map((email) => ({ email })),
+      recipients: recipients
+        .split(",")
+        .map((email) => ({ email: email.trim() })),
+      _user: req.user.id,
+      dateSent: Date.now(),
     });
   });
 };
